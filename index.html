@@ -497,7 +497,7 @@ function dash(){
   const lab=dFrom==dTo?longDay(dFrom):'du '+new Date(dFrom+'T00:00:00').toLocaleDateString('fr-FR')+' au '+new Date(dTo+'T00:00:00').toLocaleDateString('fr-FR');
   const q=[['1','Aujourd\'hui'],['7','7 jours'],['30','30 jours'],['mois','Ce mois'],['all','Tout']].map(([v,t])=>`<button class="btn g s" data-r="${v}">${t}</button>`).join('');
   const current=dFrom==dTo?"Aujourd'hui":(dFrom==ymd(Date.now()-6*864e5)&&dTo==ymd(new Date())?'7 jours':(dFrom==ymd(Date.now()-29*864e5)&&dTo==ymd(new Date())?'30 jours':'Personnalisée'));
-  return `<div class="card periodCard"><div class="periodHead"><div class="periodTitle"><strong>Période</strong><span class="periodCurrent">${current}</span></div><button class="btn g periodToggle" data-period-toggle aria-label="Afficher les raccourcis de période"><span class="periodArrow ${periodOpen?'open':''}">⌄</span></button></div><div class="periodPanel" ${periodOpen?'':'style="display:none"'}><div class="periodQuick">${q}</div><div class="row" style="margin:0"><label>Du <input id="dfrom" type="date" value="${dFrom}"></label><label>Au <input id="dto" type="date" value="${dTo}"></label></div></div></div>`
+  return `<div class="card periodCard"><div class="periodHead"><div class="periodTitle"><strong>Période</strong><span class="periodCurrent">${current}</span></div><button class="btn g periodToggle" data-period-toggle aria-label="Afficher les raccourcis de période"><span class="periodArrow ${periodOpen?'open':''}">⌄</span></button></div><div class="periodPanel" ${periodOpen?'':'style="display:none"'}><div class="periodQuick">${q}</div><div class="row" style="margin:0"><label>Du <input id="dfrom" type="date" value="${dFrom}"></label><label>Au <input id="dto" type="date" value="${dTo}"></label></div></div></div>
   <div class="kpis">
   <div class="kpi"><b>${money(rev)}</b><span>Chiffre d'affaires, ${lab}</span></div>
   <div class="kpi"><b>${money(gp)}</b><span>Bénéfice sur la période</span></div>
@@ -561,13 +561,14 @@ function dayCard(){
   <h2 style="font-size:15px">Quantité vendue par article</h2><div class="tw"><table style="min-width:360px"><thead><tr><th>Article</th><th class="n">Quantité</th><th class="n">Total</th></tr></thead><tbody>${agg(L).map(r=>`<tr><td>${esc(r.name)}</td><td class="n">${r.qty}</td><td class="n">${money(r.tot)}</td></tr>`).join('')}</tbody></table></div><h2 style="font-size:15px;margin-top:16px">Détail des ventes</h2><div class="tw"><table><thead><tr><th>Heure</th><th>Produit</th><th class="n">Qté</th><th class="n">Total</th></tr></thead><tbody>${L.map(s=>`<tr><td>${hour(s.date)}</td><td>${esc(s.name)}</td><td class="n">${s.qty}</td><td class="n">${money(st(s))}</td></tr>`).join('')}</tbody><tfoot><tr><th colspan="2">Total du jour</th><th class="n">${n}</th><th class="n">${money(tot)}</th></tr></tfoot></table>${L.length?'':'<p class="empty">Aucune vente ce jour-là.</p>'}</div></div>
   <div class="card"><h2>Chiffre d'affaires par jour</h2><div class="tw"><table style="min-width:360px"><thead><tr><th>Jour</th><th class="n">Total</th><th></th></tr></thead><tbody>${D.map(([k,v])=>`<tr><td>${longDay(k)}</td><td class="n">${money(v)}</td><td class="n"><button class="btn g s" data-d="${k}">Voir</button></td></tr>`).join('')}</tbody></table>${D.length?'':'<p class="empty">Aucune vente enregistrée.</p>'}</div></div>`;
 }
-let per='7';
+let per='7',reportPeriodOpen=false;
 const inPer=s=>inP(s,per);
 function repData(){return agg(S.sales.filter(inPer))}
 function reports(){
   const R=repData(),tot=R.reduce((a,r)=>a+r.tot,0),n=R.reduce((a,r)=>a+r.qty,0);
-  const o=[['1','Aujourd\'hui'],['7','7 derniers jours'],['30','30 derniers jours'],['all','Tout']].map(([v,t])=>`<option value="${v}" ${v==per?'selected':''}>${t}</option>`).join('');
-  return dayCard()+`<div class="card"><h2>Rapport de ventes</h2><div class="row"><select id="per" aria-label="Période">${o}</select><button class="btn" data-p="rep">Enregistrer en PDF</button><button class="btn g" data-x2="rep">CSV</button></div>
+  const labels={1:"Aujourd'hui",7:'7 derniers jours',30:'30 derniers jours',all:'Tout'};
+  const quick=[['1',"Aujourd'hui"],['7','7 jours'],['30','30 jours'],['all','Tout']].map(([v,t])=>`<button class="btn g s" data-report-period="${v}">${t}</button>`).join('');
+  return dayCard()+`<div class="card"><div class="periodHead"><div class="periodTitle"><strong>Période</strong><span class="periodCurrent">${labels[per]}</span></div><button class="btn g periodToggle" data-report-period-toggle aria-label="Afficher les périodes"><span class="periodArrow ${reportPeriodOpen?'open':''}">⌄</span></button></div><div class="periodPanel" ${reportPeriodOpen?'':'style="display:none"'}><div class="periodQuick">${quick}</div></div><div class="row" style="margin-top:12px"><button class="btn" data-p="rep">Enregistrer en PDF</button><button class="btn g" data-x2="rep">CSV</button></div>
   <div class="kpis"><div class="kpi"><b>${money(tot)}</b><span>Chiffre d'affaires</span></div><div class="kpi"><b>${n}</b><span>Articles vendus</span></div></div>
   <div class="tw"><table><thead><tr><th>Produit</th><th class="n">Quantité vendue</th><th class="n">Total</th><th class="n">Stock restant</th></tr></thead><tbody>${R.map(r=>`<tr><td>${esc(r.name)}</td><td class="n">${r.qty}</td><td class="n">${money(r.tot)}</td><td class="n">${(S.products.find(p=>p.id==r.pid)||{qty:'—'}).qty}</td></tr>`).join('')}</tbody><tfoot><tr><th>Total général</th><th class="n">${n}</th><th class="n">${money(tot)}</th><th></th></tr></tfoot></table>${R.length?'':'<p class="empty">Aucune vente sur cette période.</p>'}</div></div>
   <div class="card"><h2>Sauvegarde des données</h2><p class="empty" style="padding:0 0 12px">Enregistrez régulièrement une sauvegarde locale. Elle permet de tout récupérer si les données du navigateur sont effacées.</p>
@@ -620,12 +621,13 @@ function cashView(){
   ${H.map(e=>`<tr><td>${dtm(e.d)}</td><td>${e.t}</td><td>${esc(e.l)}</td><td class="n"><b class="${e.a<0?'neg':'pos'}">${e.a<0?'−':'+'}${money(Math.abs(e.a))}</b></td><td class="n">${money(e.b)}</td></tr>`).join('')}
   </tbody></table>${H.length?'':'<p class="empty">Aucun mouvement de caisse.</p>'}</div></div>`;
 }
-let bp='30';
+let bp='30',benefitPeriodOpen=false;
 function benefits(){
   const SR=S.sales.filter(s=>inP(s,bp)),R=agg(SR),sum=k=>R.reduce((a,r)=>a+r[k],0),g=sum('gain'),kt=sum('kt'),unk=SR.filter(s=>costOf(s)==null).length;
   const pot=S.products.filter(p=>p.cost!=null).reduce((a,p)=>a+p.qty*(p.price-p.cost),0);
-  const o=[['1','Aujourd\'hui'],['7','7 derniers jours'],['30','30 derniers jours'],['mois','Ce mois'],['all','Tout']].map(([v,t])=>`<option value="${v}" ${v==bp?'selected':''}>${t}</option>`).join('');
-  return `<div class="card"><h2>Bénéfices des ventes</h2><div class="row"><select id="bper" aria-label="Période">${o}</select><button class="btn" data-p="ben">Enregistrer en PDF</button><button class="btn g" data-x2="ben">CSV</button></div>
+  const labels={1:"Aujourd'hui",7:'7 derniers jours',30:'30 derniers jours',mois:'Ce mois',all:'Tout'};
+  const quick=[['1',"Aujourd'hui"],['7','7 jours'],['30','30 jours'],['mois','Ce mois'],['all','Tout']].map(([v,t])=>`<button class="btn g s" data-benefit-period="${v}">${t}</button>`).join('');
+  return `<div class="card"><div class="periodHead"><div class="periodTitle"><strong>Période</strong><span class="periodCurrent">${labels[bp]}</span></div><button class="btn g periodToggle" data-benefit-period-toggle aria-label="Afficher les périodes"><span class="periodArrow ${benefitPeriodOpen?'open':''}">⌄</span></button></div><div class="periodPanel" ${benefitPeriodOpen?'':'style="display:none"'}><div class="periodQuick">${quick}</div></div><div class="row" style="margin-top:12px"><button class="btn" data-p="ben">Enregistrer en PDF</button><button class="btn g" data-x2="ben">CSV</button></div>
   <div class="kpis"><div class="kpi"><b>${money(sum('tot'))}</b><span>Chiffre d'affaires</span></div><div class="kpi"><b>${money(sum('ct'))}</b><span>Coût d'achat des articles vendus</span></div><div class="kpi"><b class="${g<0?'neg':'pos'}">${money(g)}</b><span>Bénéfice${kt?' ('+Math.round(g/kt*100)+' % de marge)':''}</span></div><div class="kpi"><b>${money(pot)}</b><span>Bénéfice possible si tout le stock est vendu</span></div></div>
   ${unk?`<p class="empty" style="padding:0 0 12px">${unk} vente(s) sans prix d'achat ne sont pas comptées dans le bénéfice. Renseignez le prix d'achat dans Stock.</p>`:''}
   <div class="tw"><table><thead><tr><th>Article</th><th class="n">Qté vendue</th><th class="n">Chiffre d'affaires</th><th class="n">Coût d'achat</th><th class="n">Bénéfice</th></tr></thead><tbody>${R.map(r=>`<tr><td>${esc(r.name)}</td><td class="n">${r.qty}</td><td class="n">${money(r.tot)}</td><td class="n">${money(r.ct)}</td><td class="n"><span class="${r.gain<0?'neg':'pos'}">${money(r.gain)}</span></td></tr>`).join('')}</tbody><tfoot><tr><th>Total</th><th class="n">${sum('qty')}</th><th class="n">${money(sum('tot'))}</th><th class="n">${money(sum('ct'))}</th><th class="n">${money(g)}</th></tr></tfoot></table>${R.length?'':'<p class="empty">Aucune vente sur cette période.</p>'}</div></div>`;
@@ -687,8 +689,6 @@ function render(){
   const rg=()=>{let f=$('#dfrom').value,t=$('#dto').value;if(!f||!t)return;if(f>t)[f,t]=[t,f];dFrom=f;dTo=t;render()};
   const d1=$('#dfrom'),d2=$('#dto');if(d1){d1.onchange=rg;d2.onchange=rg}
   const ds=$('#dsel');if(ds)ds.onchange=e=>{dsel=e.target.value||ymd(new Date());render()};
-  const bs=$('#bper');if(bs)bs.onchange=e=>{bp=e.target.value;render()};
-  const pe=$('#per');if(pe)pe.onchange=e=>{per=e.target.value;render()};
   const rf=$('#rf');if(rf)rf.onchange=e=>{
     const f=e.target.files[0];if(!f)return;const r=new FileReader();
     r.onload=()=>{try{const o=JSON.parse(r.result);if(!Array.isArray(o.products)||!Array.isArray(o.sales))throw 0;
@@ -746,6 +746,10 @@ $('#app').onclick=e=>{
   const t=e.target.closest('button,input')||e.target,d=t.dataset;
   if(d.p){exportPdf(d.p);return}
   if(t.dataset.periodToggle!==undefined){periodOpen=!periodOpen;render();return}
+  if(t.dataset.reportPeriodToggle!==undefined){reportPeriodOpen=!reportPeriodOpen;render();return}
+  if(t.dataset.benefitPeriodToggle!==undefined){benefitPeriodOpen=!benefitPeriodOpen;render();return}
+  if(d.reportPeriod){per=d.reportPeriod;reportPeriodOpen=false;render();return}
+  if(d.benefitPeriod){bp=d.benefitPeriod;benefitPeriodOpen=false;render();return}
   if(t.id=='fdset'){const v=$('#fd').value.trim()===''?0:num($('#fd').value);if(isNaN(v)||v<0)return note('Montant invalide.');S.fund=v;S.fundDate=$('#fdd').value?new Date($('#fdd').value+'T00:00:00').toISOString():new Date(new Date().setHours(0,0,0,0)).toISOString();save();render();note('Fonds de départ enregistré');return}
   if(t.id=='wadd'){const a=num($('#wm').value),r=$('#wr').value.trim();
     if(isNaN(a)||a<=0)return note('Entrez un montant valide.');if(!r)return note('Entrez le motif du retrait.');
