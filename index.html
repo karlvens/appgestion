@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="color-scheme" content="light only">
+<meta name="theme-color" content="#f7941d">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gestion ventes et stock</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -439,6 +440,17 @@ header select{order:2;margin-top:auto}
 input,select,textarea{font-size:16px}
 }
 
+/* ===== En-tête orange et blanc ===== */
+header{background:#f7941d!important;background-image:none!important;border-right:0!important;box-shadow:0 2px 14px rgba(217,108,11,.30)!important;color:#fff}
+h1,.brand h1{color:#fff!important}
+header .logo{height:40px;background:#fff;border-radius:12px;padding:5px 9px;filter:none;box-shadow:0 2px 8px rgba(120,60,0,.18)}
+header nav button{color:rgba(255,255,255,.95)!important;font-weight:600}
+header nav button:hover{color:#fff!important;background:rgba(255,255,255,.2)!important}
+header nav button.on{color:#d96c0b!important;background:#fff!important;border-color:#fff!important;box-shadow:none!important}
+header nav button.on svg{stroke:#d96c0b!important}
+header select{background:rgba(255,255,255,.2)!important;color:#fff!important;border:1px solid rgba(255,255,255,.6)!important}
+header select option{color:#1a1d23;background:#fff}
+@media (max-width:899px){header{padding-bottom:8px}}
 </style>
 </head>
 <body>
