@@ -106,6 +106,60 @@ dialog::backdrop{background:rgba(10,12,16,.55)}
 @media(max-width:700px){.two{grid-template-columns:1fr}}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-weight:500;z-index:99;max-width:90vw;display:none;box-shadow:0 8px 24px rgba(0,0,0,.25)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== Premium professional UI ===== */
+:root{
+  --bg:#f5f7fb;--card:#ffffff;--ink:#142033;--mute:#64748b;--line:#e5eaf2;--bd:#d5ddea;
+  --acc:#2563eb;--acc2:#06b6d4;--accx:#ffffff;--warn:#f97316;--ok:#16a34a;
+  --side:#0b1220;--sidei:#aebbd0;--sidel:#17243a;
+  --grad:linear-gradient(135deg,#2563eb 0%,#06b6d4 100%);
+  --grad-dark:linear-gradient(135deg,#111d35 0%,#0b1220 100%);
+  --shadow:0 10px 30px rgba(15,23,42,.07);--shadow-lg:0 18px 50px rgba(15,23,42,.12)
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#080d17;--card:#101827;--ink:#eef4ff;--mute:#93a4bd;--line:#202c3e;--bd:#334258;
+  --side:#060b14;--sidei:#9fb0c8;--sidel:#142137;--shadow:0 12px 30px rgba(0,0,0,.25);--shadow-lg:0 20px 55px rgba(0,0,0,.35)
+}}
+:root[data-theme="dark"]{--bg:#080d17;--card:#101827;--ink:#eef4ff;--mute:#93a4bd;--line:#202c3e;--bd:#334258;--side:#060b14;--sidei:#9fb0c8;--sidel:#142137;--shadow:0 12px 30px rgba(0,0,0,.25);--shadow-lg:0 20px 55px rgba(0,0,0,.35)}
+body{background:radial-gradient(circle at 100% 0%,rgba(37,99,235,.07),transparent 28%),var(--bg);font-family:Inter,'IBM Plex Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;letter-spacing:.005em}
+header{background:linear-gradient(160deg,#0b1220 0%,#101c31 55%,#142a49 100%);box-shadow:8px 0 35px rgba(2,8,23,.16);border-right:1px solid rgba(255,255,255,.05)}
+.brand{padding:4px 8px}.brand h1{font-size:15px;letter-spacing:.01em}.logo{filter:drop-shadow(0 5px 12px rgba(0,0,0,.25))}
+nav button{border-radius:11px!important;margin:2px 0;color:#aebbd0;transition:all .2s ease}
+nav button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav button.on{color:#fff!important;background:linear-gradient(90deg,rgba(37,99,235,.28),rgba(6,182,212,.08))!important;border-color:#38bdf8!important;box-shadow:inset 0 0 0 1px rgba(96,165,250,.12),0 5px 18px rgba(37,99,235,.12)}
+nav button.on svg{stroke:#67e8f9}
+header select{border:1px solid rgba(255,255,255,.1)!important;background:rgba(255,255,255,.06)!important;border-radius:10px!important;padding:9px 11px}
+.content{padding-top:28px}
+.ptitle{font-size:28px;font-weight:700;letter-spacing:-.03em;background:linear-gradient(90deg,var(--ink),#2563eb);-webkit-background-clip:text;background-clip:text;color:transparent}
+.card{border:1px solid rgba(148,163,184,.20);border-radius:17px;padding:20px 22px;margin-bottom:18px;box-shadow:var(--shadow);background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,253,.98));transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.card:hover{box-shadow:var(--shadow-lg);border-color:rgba(37,99,235,.18)}
+@media(max-width:999px){.card{padding:18px}.content{padding:20px 14px 38px}.ptitle{font-size:24px}}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .card{background:linear-gradient(180deg,#111b2b,#0f1725)}}
+:root[data-theme="dark"] .card{background:linear-gradient(180deg,#111b2b,#0f1725)}
+.kpis{gap:12px;background:transparent;border:0;border-radius:0;overflow:visible}
+.kpi{border:1px solid rgba(148,163,184,.18);border-radius:15px;padding:17px 18px;background:var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi:before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad)}
+.kpi b{font-size:25px;letter-spacing:-.035em}.kpi span{font-size:12px;margin-top:4px;text-transform:uppercase;letter-spacing:.05em}.kpi.w{background:linear-gradient(135deg,rgba(249,115,22,.08),var(--card))}
+.btn{border:0!important;border-radius:10px;padding:9px 15px;background:var(--grad);color:#fff;box-shadow:0 7px 18px rgba(37,99,235,.18);transition:transform .15s ease,box-shadow .15s ease,filter .15s ease}
+.btn:hover{filter:none;transform:translateY(-1px);box-shadow:0 10px 24px rgba(37,99,235,.25)}
+.btn.g{background:var(--card);color:var(--ink);border:1px solid var(--bd)!important;box-shadow:none}.btn.g:hover{background:var(--bg);box-shadow:none}
+.btn.d{background:linear-gradient(135deg,#fff,#fff7f2);color:#ea580c;border:1px solid #fed7aa!important;box-shadow:none}
+input,select{border:1px solid var(--bd);border-radius:10px;padding:9px 12px;background:var(--card);box-shadow:inset 0 1px 2px rgba(15,23,42,.025);transition:border-color .15s,box-shadow .15s}
+input:focus-visible,select:focus-visible{outline:none;box-shadow:0 0 0 4px rgba(37,99,235,.11);border-color:#60a5fa}
+.tile{border:1px solid var(--line);border-radius:13px;box-shadow:0 4px 12px rgba(15,23,42,.04);transition:all .18s ease}.tile:hover:not(:disabled){transform:translateY(-2px);border-color:#60a5fa;box-shadow:0 10px 22px rgba(37,99,235,.10)}
+.tile.on{border-color:#60a5fa;background:linear-gradient(135deg,rgba(37,99,235,.10),rgba(6,182,212,.06));box-shadow:inset 0 0 0 1px #60a5fa,0 8px 22px rgba(37,99,235,.08)}
+table{border-collapse:separate;border-spacing:0}th{background:linear-gradient(180deg,#f8fafc,#f1f5f9);color:#526177;font-size:11px;text-transform:uppercase;letter-spacing:.05em}td,th{border-bottom:1px solid var(--line)}tr:last-child td{border-bottom:0}tbody tr{transition:background .15s}tbody tr:hover{background:rgba(37,99,235,.035)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) th{background:#172337;color:#9fb0c8}}
+:root[data-theme="dark"] th{background:#172337;color:#9fb0c8}
+.tag{border-radius:999px;padding:4px 10px}.tag.w{background:rgba(249,115,22,.12)}
+.authOverlay{background:radial-gradient(circle at 15% 20%,rgba(6,182,212,.28),transparent 32%),radial-gradient(circle at 85% 10%,rgba(37,99,235,.32),transparent 35%),linear-gradient(135deg,#07101f 0%,#10254a 48%,#0b7184 100%);padding:18px}
+.authOverlay:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,black,transparent)}
+.authCard{position:relative;width:min(450px,100%);background:rgba(255,255,255,.97);border:1px solid rgba(255,255,255,.55);border-radius:24px;padding:30px;box-shadow:0 30px 90px rgba(0,0,0,.28);backdrop-filter:blur(18px)}
+.authLogo{width:82px;height:82px;border-radius:22px;padding:7px;box-shadow:0 14px 35px rgba(15,23,42,.18);border:1px solid #e5eaf2}.authCard h2{font-size:25px;letter-spacing:-.025em}.authSub{font-size:14px}.authCard label{font-weight:500;color:#475569}.authCard input{height:46px;margin-top:6px}.authBtn{height:48px;font-size:15px;margin-top:12px}.authLink{color:#2563eb;font-weight:600}.authMsg{border-radius:11px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa}
+.accountGrid{gap:18px}.accountGrid .card{min-height:180px}.accountGrid .card:first-child{background:linear-gradient(135deg,rgba(37,99,235,.10),var(--card) 55%)}
+#toast{border-radius:999px;background:#0f172a;color:#fff;padding:11px 18px;box-shadow:0 15px 35px rgba(2,8,23,.22);border:1px solid rgba(255,255,255,.1)}
+dialog{border-radius:18px;border:1px solid var(--line);box-shadow:0 25px 70px rgba(2,8,23,.25)}
+@media(max-width:620px){.row{gap:7px}.btn{padding:9px 12px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi{padding:14px}.kpi b{font-size:20px}.kpi span{font-size:10px}.authCard{padding:24px;border-radius:20px}}
 </style>
 </head>
 <body>
@@ -324,10 +378,6 @@ function reports(){
   return dayCard()+`<div class="card"><h2>Rapport de ventes</h2><div class="row"><select id="per" aria-label="Période">${o}</select><button class="btn" data-p="rep">Enregistrer en PDF</button><button class="btn g" data-x2="rep">CSV</button></div>
   <div class="kpis"><div class="kpi"><b>${money(tot)}</b><span>Chiffre d'affaires</span></div><div class="kpi"><b>${n}</b><span>Articles vendus</span></div></div>
   <div class="tw"><table><thead><tr><th>Produit</th><th class="n">Quantité vendue</th><th class="n">Total</th><th class="n">Stock restant</th></tr></thead><tbody>${R.map(r=>`<tr><td>${esc(r.name)}</td><td class="n">${r.qty}</td><td class="n">${money(r.tot)}</td><td class="n">${(S.products.find(p=>p.id==r.pid)||{qty:'—'}).qty}</td></tr>`).join('')}</tbody><tfoot><tr><th>Total général</th><th class="n">${n}</th><th class="n">${money(tot)}</th><th></th></tr></tfoot></table>${R.length?'':'<p class="empty">Aucune vente sur cette période.</p>'}</div></div>
-  <div class="card"><h2>Synchronisation entre appareils</h2>
-  <p class="empty" style="padding:0 0 12px">Connectez cette application à votre base Supabase. Utilisez la même URL et la même clé sur chaque téléphone, tablette ou ordinateur.</p>
-  <div class="row"><input id="cu" class="grow" placeholder="URL Supabase" value="${esc((cloudCfg()||{}).url||'')}" aria-label="URL Supabase"><input id="ck" class="grow" placeholder="Clé anon Supabase" value="${esc((cloudCfg()||{}).key||'')}" aria-label="Clé anon Supabase"><button class="btn" id="csave">Connecter</button><button class="btn g" id="cpull">Actualiser</button></div>
-  <p id="cstat" class="empty" style="padding:8px 0 0">${esc(cloudStatus())}</p></div>
   <div class="card"><h2>Sauvegarde des données</h2><p class="empty" style="padding:0 0 12px">Enregistrez régulièrement une sauvegarde locale. Elle permet de tout récupérer si les données du navigateur sont effacées.</p>
   <div class="row"><button class="btn" data-x2="bak">Enregistrer une sauvegarde</button><label class="btn g" for="rf">Restaurer une sauvegarde</label><input id="rf" type="file" accept=".json,application/json" hidden></div></div>`;
 }
