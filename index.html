@@ -135,7 +135,7 @@ dialog::backdrop{background:rgba(10,12,16,.55)}
 <script>
 const K='gestion-v1';
 const CLOUD_K='gestion-cloud-config-v1';
-let cloudTimer=null,cloudPoll=null,cloudBusy=false,lastCloudUpdated=null;
+let cloudTimer=null,cloudPoll=null,cloudBusy=false,lastCloudUpdated=null,cloudDirty=false;
 const cloudCfg=()=>{try{return JSON.parse(localStorage.getItem(CLOUD_K)||'null')}catch(e){return null}};
 const cloudSetCfg=c=>{try{localStorage.setItem(CLOUD_K,JSON.stringify(c))}catch(e){}};
 const cloudHeaders=c=>({'Content-Type':'application/json','apikey':c.key,'Authorization':'Bearer '+c.key,'Prefer':'return=minimal'});
