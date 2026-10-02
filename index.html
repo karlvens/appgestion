@@ -335,6 +335,220 @@ button,input,select,textarea{max-width:100%}
   input,select,.btn{font-size:16px}
 }
 
+
+/* ===== Global design aligned with login ===== */
+:root{
+  --bg:#f4f6f8;
+  --card:#ffffff;
+  --ink:#171a1f;
+  --mute:#697386;
+  --line:#e4e7ec;
+  --bd:#d7dce3;
+  --acc:#f7941d;
+  --acc2:#d96c0b;
+  --accx:#ffffff;
+  --warn:#c2410c;
+  --ok:#15803d;
+  --side:#171b21;
+  --sidei:#c4cbd5;
+  --sidel:#252b33;
+  --grad:linear-gradient(135deg,#ffad42 0%,#f7941d 55%,#d96c0b 100%);
+  --grad-dark:linear-gradient(145deg,#1b2028 0%,#11151b 46%,#f7941d 145%);
+  --shadow:0 10px 30px rgba(15,23,42,.07);
+  --shadow-lg:0 20px 55px rgba(15,23,42,.13)
+}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]){
+  --bg:#101318;--card:#181c22;--ink:#f3f4f6;--mute:#a5adba;--line:#292e36;--bd:#3a414c;
+  --side:#0e1115;--sidei:#aeb6c2;--sidel:#232931;
+ }
+}
+:root[data-theme="dark"]{
+ --bg:#101318;--card:#181c22;--ink:#f3f4f6;--mute:#a5adba;--line:#292e36;--bd:#3a414c;
+ --side:#0e1115;--sidei:#aeb6c2;--sidel:#232931
+}
+body{
+ background:
+  radial-gradient(circle at 100% 0%,rgba(247,148,29,.07),transparent 28%),
+  var(--bg);
+ color:var(--ink)
+}
+header{
+ background:linear-gradient(160deg,#171b21 0%,#11151b 58%,#2a2118 100%);
+ box-shadow:8px 0 35px rgba(15,23,42,.14);
+ border-right:1px solid rgba(255,255,255,.06)
+}
+.brand{padding:4px 8px}
+.logo{filter:drop-shadow(0 5px 12px rgba(0,0,0,.25))}
+nav button{
+ border-radius:11px!important;
+ color:#c4cbd5;
+ margin:2px 0;
+ transition:all .2s ease
+}
+nav button:hover{color:#fff;background:rgba(255,255,255,.06)}
+nav button.on{
+ color:#fff!important;
+ background:linear-gradient(90deg,rgba(247,148,29,.22),rgba(217,108,11,.06))!important;
+ border-color:#f7941d!important;
+ box-shadow:inset 0 0 0 1px rgba(247,148,29,.12),0 5px 18px rgba(247,148,29,.10)
+}
+nav button.on svg{stroke:#ffb85c}
+header select{
+ border:1px solid rgba(255,255,255,.1)!important;
+ background:rgba(255,255,255,.06)!important;
+ border-radius:10px!important
+}
+.content{padding-top:28px}
+.ptitle{
+ font-size:28px;
+ font-weight:700;
+ letter-spacing:-.03em;
+ background:linear-gradient(90deg,var(--ink),#d96c0b);
+ -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.card{
+ border:1px solid rgba(148,163,184,.20);
+ border-radius:18px;
+ padding:20px 22px;
+ margin-bottom:18px;
+ box-shadow:var(--shadow);
+ background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(248,250,253,.98));
+ transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease
+}
+.card:hover{box-shadow:var(--shadow-lg);border-color:rgba(247,148,29,.22)}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) .card{background:linear-gradient(180deg,#1b2028,#171b21)}
+}
+:root[data-theme="dark"] .card{background:linear-gradient(180deg,#1b2028,#171b21)}
+.kpis{gap:12px;background:transparent;border:0;border-radius:0;overflow:visible}
+.kpi{
+ border:1px solid rgba(148,163,184,.18);
+ border-radius:15px;
+ padding:17px 18px;
+ background:var(--card);
+ box-shadow:var(--shadow);
+ position:relative;
+ overflow:hidden
+}
+.kpi:before{
+ content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--grad)
+}
+.kpi b{font-size:25px;letter-spacing:-.035em}
+.kpi span{font-size:12px;margin-top:4px;text-transform:uppercase;letter-spacing:.05em}
+.kpi.w{background:linear-gradient(135deg,rgba(249,115,22,.08),var(--card))}
+.btn{
+ border:0!important;
+ border-radius:10px;
+ padding:9px 15px;
+ background:var(--grad);
+ color:#fff;
+ box-shadow:0 7px 18px rgba(247,148,29,.18);
+ transition:transform .15s ease,box-shadow .15s ease,filter .15s ease
+}
+.btn:hover{filter:none;transform:translateY(-1px);box-shadow:0 10px 24px rgba(247,148,29,.25)}
+.btn.g{
+ background:var(--card);color:var(--ink);
+ border:1px solid var(--bd)!important;box-shadow:none
+}
+.btn.g:hover{background:var(--bg);box-shadow:none}
+.btn.d{
+ background:linear-gradient(135deg,#fff,#fff7f2);
+ color:#c2410c;
+ border:1px solid #fed7aa!important;
+ box-shadow:none
+}
+input,select{
+ border:1px solid var(--bd);
+ border-radius:10px;
+ padding:9px 12px;
+ background:var(--card);
+ color:var(--ink);
+ box-shadow:inset 0 1px 2px rgba(15,23,42,.025);
+ transition:border-color .15s,box-shadow .15s
+}
+input:focus-visible,select:focus-visible{
+ outline:none;
+ box-shadow:0 0 0 4px rgba(247,148,29,.12);
+ border-color:#f7941d
+}
+.tile{
+ border:1px solid var(--line);
+ border-radius:13px;
+ box-shadow:0 4px 12px rgba(15,23,42,.04);
+ transition:all .18s ease
+}
+.tile:hover:not(:disabled){
+ transform:translateY(-2px);
+ border-color:#f6ad55;
+ box-shadow:0 10px 22px rgba(247,148,29,.10)
+}
+.tile.on{
+ border-color:#f7941d;
+ background:linear-gradient(135deg,rgba(247,148,29,.12),rgba(217,108,11,.05));
+ box-shadow:inset 0 0 0 1px #f7941d,0 8px 22px rgba(247,148,29,.08)
+}
+table{border-collapse:separate;border-spacing:0}
+th{
+ background:linear-gradient(180deg,#fffaf4,#fff4e8);
+ color:#6b7280;
+ font-size:11px;
+ text-transform:uppercase;
+ letter-spacing:.05em
+}
+td,th{border-bottom:1px solid var(--line)}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:rgba(247,148,29,.035)}
+@media(prefers-color-scheme:dark){
+ :root:not([data-theme="light"]) th{background:#252b33;color:#aeb6c2}
+}
+:root[data-theme="dark"] th{background:#252b33;color:#aeb6c2}
+.tag{border-radius:999px;padding:4px 10px}
+.tag.w{background:rgba(249,115,22,.12)}
+dialog{
+ border-radius:18px;
+ border:1px solid var(--line);
+ box-shadow:0 25px 70px rgba(2,8,23,.25)
+}
+#toast{
+ border-radius:999px;
+ background:#171b21;
+ color:#fff;
+ padding:11px 18px;
+ box-shadow:0 15px 35px rgba(2,8,23,.22);
+ border:1px solid rgba(255,255,255,.1)
+}
+/* Match period controls and secondary UI */
+.periodToggle{
+ border:1px solid var(--bd);
+ background:var(--card);
+ color:var(--ink);
+ box-shadow:none
+}
+.periodToggle:hover{border-color:#f7941d;color:#d96c0b}
+.periodQuick .btn{box-shadow:none}
+.currencyField select{border-color:var(--bd)}
+code{background:rgba(247,148,29,.08);color:#9a4a08}
+/* Responsive consistency */
+@media(max-width:999px){
+ .card{padding:18px}
+ .content{padding:20px 14px 38px}
+ .ptitle{font-size:24px}
+}
+@media(max-width:620px){
+ .btn{padding:9px 12px}
+ .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .kpi{padding:14px}
+ .kpi b{font-size:20px}
+}
+@media(max-width:520px){
+ .content{padding:16px 10px 28px}
+ .ptitle{font-size:21px}
+ .card{padding:14px;border-radius:14px}
+ .row>.btn,.row>input,.row>select{min-height:42px}
+ .btn{min-height:42px}
+}
+
 </style>
 </head>
 <body>
